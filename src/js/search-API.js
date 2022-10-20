@@ -1,7 +1,16 @@
 import { Notify } from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import markupTpl from '../templates/card-imageTpl.hbs';
 import getRefs from './getRefs';
 const axios = require('axios').default;
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionDelay: 250,
+  captionsData: 'alt',
+});
+
+console.log(lightbox);
 
 const refs = getRefs();
 
@@ -60,6 +69,7 @@ async function getSearchResult(BASE_URL) {
       Notify.info(`Hooray! We found ${response.data.totalHits} images`);
       const markup = markupTpl(response.data.hits);
       refs.cardContainer.innerHTML = markup;
+      lightbox.refresh();
     }
   } catch (error) {
     console.error(error);
@@ -73,6 +83,7 @@ async function getSearchCont(BASE_URL) {
     console.log(response.data.hits);
     const markup = markupTpl(response.data.hits);
     refs.cardContainer.insertAdjacentHTML('beforeend', markup);
+    lightbox.refresh();
   } catch (error) {
     return Notify.failure(
       `We're sorry, but you've reached the end of search results. :(`
