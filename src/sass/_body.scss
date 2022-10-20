@@ -1,3 +1,10 @@
 .background-gallery {
   background-color: grey;
 }
+
+.btn.load-more {
+  position: relative;
+  transform: translate(-50%);
+  left: 50%;
+  background-color: #212529;
+}
