@@ -25,9 +25,7 @@ const callback = async function (entries, observer) {
         const { hits } = await searchApiServise.addFetchArticles();
         onLoad(hits, observer);
         lightbox.refresh();
-      } catch (error) {
-        return Notify.failure(`${error} :(`);
-      }
+      } catch (error) {}
     }
   });
 };
@@ -60,22 +58,29 @@ function onLoad(hits, observer) {
   const markup = markupTpl(hits);
   const gallery = refs.cardContainer.insertAdjacentHTML('beforeend', markup);
   const target = document.querySelector('.gallery__item:last-child');
-  console.log(target);
   if (!searchApiServise.isShowLoadMore) {
-    console.log('end');
     Notify.failure(
       `We're sorry, but you've reached the end of search results. :(`
     );
     observer.unobserve(entry.target);
   } else {
-    console.log('no end');
     io.observe(target);
   }
+
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 
   return gallery;
 }
 
 function createMarkup(hits) {
+  e.preventDefault();
   const markup = markupTpl(hits);
   const gallery = (refs.cardContainer.innerHTML = markup);
   const target = document.querySelector('.gallery__item:last-child');
@@ -88,7 +93,7 @@ function createMarkup(hits) {
     .firstElementChild.getBoundingClientRect();
 
   window.scrollBy({
-    top: cardHeight * 2,
+    top: cardHeight,
     behavior: 'smooth',
   });
 
