@@ -37,7 +37,7 @@ async function onSearch(e) {
   e.preventDefault();
 
   searchApiServise.resetPages();
-  searchApiServise.query = e.target.elements.searchQuery.value
+  searchApiServise.query = e.currentTarget.elements.searchQuery.value
     .trim()
     .toLowerCase();
 
@@ -74,7 +74,7 @@ function onLoad(hits, observer) {
     .firstElementChild.getBoundingClientRect();
 
   window.scrollBy({
-    top: cardHeight * 2,
+    top: cardHeight * 2.5,
     behavior: 'smooth',
   });
 
@@ -88,15 +88,6 @@ function createMarkup(hits) {
   if (searchApiServise.isShowLoadMore) {
     io.observe(target);
   }
-
-  const { height: cardHeight } = document
-    .querySelector('.gallery')
-    .firstElementChild.getBoundingClientRect();
-
-  window.scrollBy({
-    top: cardHeight,
-    behavior: 'smooth',
-  });
 
   return gallery;
 }
