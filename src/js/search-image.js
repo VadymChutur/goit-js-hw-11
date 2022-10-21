@@ -38,9 +38,8 @@ refs.inputFieldSearch.addEventListener('submit', onSearch);
 async function onSearch(e) {
   e.preventDefault();
 
-  console.log(e.currentTarget.elements.searchQuery.value);
   searchApiServise.resetPages();
-  searchApiServise.query = e.currentTarget.elements.searchQuery.value;
+  searchApiServise.query = e.target.elements.searchQuery.value;
 
   try {
     const { hits, totalHits } = await searchApiServise.fetchArticles();
