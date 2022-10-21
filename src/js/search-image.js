@@ -37,7 +37,9 @@ async function onSearch(e) {
   e.preventDefault();
 
   searchApiServise.resetPages();
-  searchApiServise.query = e.target.elements.searchQuery.value;
+  searchApiServise.query = e.target.elements.searchQuery.value
+    .trim()
+    .toLowerCase();
 
   try {
     const { hits, totalHits } = await searchApiServise.fetchArticles();
@@ -80,7 +82,6 @@ function onLoad(hits, observer) {
 }
 
 function createMarkup(hits) {
-  e.preventDefault();
   const markup = markupTpl(hits);
   const gallery = (refs.cardContainer.innerHTML = markup);
   const target = document.querySelector('.gallery__item:last-child');
