@@ -35,6 +35,8 @@ const io = new IntersectionObserver(callback, options);
 refs.inputFieldSearch.addEventListener('submit', onSearch);
 
 async function onSearch(e) {
+  e.preventDefault();
+
   searchApiServise.resetPages();
   searchApiServise.query = e.currentTarget.elements.searchQuery.value
     .trim()
